@@ -19,11 +19,11 @@ class AuthController extends Controller
     public function login(){
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
             $user = Auth::user();
-            $success['token'] =  $user->createToken('MyApp')-> accessToken;
-            return response()->json(['success' => $success], $this-> successStatus);
+            $success =  $user;//$user->createToken('MyApp')-> accessToken;
+            return response()->json(['datos' => $success,'mensaje'=>'Bienvenido','u_token'=>$user->createToken('MyApp')-> accessToken], $this-> successStatus);
         }
         else{
-            return response()->json(['error'=>'Unauthorised'], 401);
+            return response()->json(['error'=>'Usuario o contraseña incorrecto','mensaje'=>'Usuario o contraseña incorrecto'], 401);
         }
     }
     /**
@@ -47,7 +47,7 @@ class AuthController extends Controller
         $user = User::create($input);
         $success['token'] =  $user->createToken('MyApp')-> accessToken;
         $success['name'] =  $user->name;
-        return response()->json(['success'=>$success], $this-> successStatus);
+        return response()->json(['success'=>$success,'mensaje'=>'Registro exitoso'], $this-> successStatus);
     }
     /**
      * details api

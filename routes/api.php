@@ -21,3 +21,7 @@ Route::post('login', 'API\AuthController@login');
 Route::post('register', 'API\AuthController@register');
 
 Route::apiResource('/tareas','API\TareaController')->middleware(['auth:api','Cors']);
+
+Route::post('/tareasall','API\TareaController@indexDatos')->middleware(['auth:api','Cors']);
+Route::post('/tareainsert','API\TareaController@update_custom')->middleware(['auth:api','Cors']);
+Route::post('/tareadelete','API\TareaController@destroyed')->middleware(['auth:api','Cors']);
